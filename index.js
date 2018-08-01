@@ -1,29 +1,21 @@
-import { names } from "./marvel";
-import * as scmClient from "./scm";
+import {createUsers} from "./users";
+import {createRepositories} from "./repos";
 
-const createUsername = name => {
-  return name
-    .trim()
-    .toLowerCase()
-    .replace(/[\s+\(\):]/g, "_")
-    .replace(/__/g, "_")
-    .replace(/^_/g, "")
-    .replace(/_$/, "");
-};
-
-const createUserObject = name => {
-  const username = createUsername(name);
-  return {
-    name: username,
-    displayName: name,
-    mail: `${username}@marvel.com`,
-    password: "marvelHero123",
-    active: true,
-    admin: false
-  };
-};
-
-for (let name of names) {
-  const user = createUserObject(name);
-  scmClient.createUser(user);
+if ( process.argv.length >= 3 ) {
+    const type = process.argv[2];
+    switch (type) {
+        case "users": {
+            createUsers();
+            break;
+        }
+        case "repositories": {
+            createRepositories();
+            break;
+        }
+        default:
+            console.log("unknown type " + type);
+    }
+} else {
+    console.log("please specify type of generated data: users or repositories");
 }
+

@@ -4,7 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "babel-node index.js"
+    "users": "babel-node index.js users",
+    "repositories": "babel-node index.js repositories"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
