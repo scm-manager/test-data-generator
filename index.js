@@ -1,5 +1,6 @@
 import {createUsers} from "./users";
 import {createRepositories} from "./repos";
+import { createGroups } from "./groups";
 
 if ( process.argv.length >= 3 ) {
     const type = process.argv[2];
@@ -10,6 +11,10 @@ if ( process.argv.length >= 3 ) {
         }
         case "repositories": {
             createRepositories();
+            break;
+        }
+        case "groups": {
+            createGroups();
             break;
         }
         default:

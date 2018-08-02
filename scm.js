@@ -35,6 +35,22 @@ export const createRepository = repository => {
     sendJSON(repository, "repository", repositoryOptions);
 };
 
+const groupOptions = {
+    method: "POST",
+    host: "localhost",
+    port: 8081,
+    path: "/scm/api/rest/v2/groups",
+    headers: {
+        "Content-Type": "application/vnd.scmm-group+json;v=2",
+        "Authorization":
+        "Basic " + Buffer.from(`${username}:${password}`).toString("base64")
+    }
+};
+
+export const createGroup = group => {
+    sendJSON(group, "group", groupOptions);
+}
+
 const sendJSON = (data, type, options) => {
     const req = http.request(options, function(res) {
         if (res.statusCode === 201) {
