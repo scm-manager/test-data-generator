@@ -1,7 +1,7 @@
 import { names } from "./marvel";
 import * as scmClient from "./scm";
 
-const createUsername = name => {
+export const createUsername = name => {
   return name
     .trim()
     .toLowerCase()

@@ -2,17 +2,20 @@ import { names } from "./marvel";
 import * as scmClient from "./scm";
 import { people } from "./people";
 import { adjectives } from "./adjectives";
+import {createUsername} from "./users";
 
-const createGroup = (value) => {
-    const adjective = pickRandom(adjectives) + "-group"+value;
+
+const createGroup = name => {
     const person = pickRandom(people);
+    const adjective = pickRandom(adjectives) +'_' + name + "-Group";
+
     let members = new Array();
     for (let i = 0; i < 10; i++) {
-        members.push(names[Math.floor(Math.random() * names.length)]);
+        members.push(createUsername(names[Math.floor(Math.random() * names.length)]));
     };
     return {
         name: adjective,
-        description: `This group includes fans of ${person.description}`,
+        description: `This group is founded by the following person: ${person.description}`,
         members: members
     };
 };
@@ -22,8 +25,8 @@ const pickRandom = (array) => {
 };
 
 export const createGroups = () => {
-    for (let i=0; i<256; i++) {
-        const group = createGroup(i);
+    for (let name of names) {
+        const group = createGroup(name);
         scmClient.createGroup(group);
     }
 };
