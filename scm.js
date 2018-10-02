@@ -7,7 +7,7 @@ const userOptions = {
   method: "POST",
   host: "localhost",
   port: 8081,
-  path: "/scm/api/rest/v2/users",
+  path: "/scm/api/v2/users",
   headers: {
     "Content-Type": "application/vnd.scmm-user+json;v=2",
     "Authorization":
@@ -23,7 +23,7 @@ const repositoryOptions = {
     method: "POST",
     host: "localhost",
     port: 8081,
-    path: "/scm/api/rest/v2/repositories",
+    path: "/scm/api/v2/repositories",
     headers: {
         "Content-Type": "application/vnd.scmm-repository+json;v=2",
         "Authorization":
@@ -39,7 +39,7 @@ const groupOptions = {
     method: "POST",
     host: "localhost",
     port: 8081,
-    path: "/scm/api/rest/v2/groups",
+    path: "/scm/api/v2/groups",
     headers: {
         "Content-Type": "application/vnd.scmm-group+json;v=2",
         "Authorization":
