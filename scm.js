@@ -1,52 +1,37 @@
 const http = require("http");
+const config = require("./package.json")["scm-manager"];
 
-const username = "scmadmin";
-const password = "scmadmin";
-
-const userOptions = {
-  method: "POST",
-  host: "localhost",
-  port: 8081,
-  path: "/scm/api/v2/users",
-  headers: {
-    "Content-Type": "application/vnd.scmm-user+json;v=2",
-    "Authorization":
-      "Basic " + Buffer.from(`${username}:${password}`).toString("base64")
-  }
+const baseOptions = {
+    host: config.host,
+    port: config.port,
+    method: "POST",
+    headers: {
+        Authorization: "Basic " + Buffer.from(`${config.username}:${config.password}`).toString("base64")
+    }
 };
 
+const createRequestOptions = (urlSuffix, contentType) => {
+    return {
+        ...baseOptions,
+        path: `${config.contextPath}/api/v2/${urlSuffix}`,
+        headers: {
+          ...baseOptions.headers,
+          "Content-Type": contentType
+        }
+      };
+}
+
+const userOptions = createRequestOptions("users", "application/vnd.scmm-user+json;v=2");
 export const createUser = user => {
   sendJSON(user, "user", userOptions);
 };
 
-const repositoryOptions = {
-    method: "POST",
-    host: "localhost",
-    port: 8081,
-    path: "/scm/api/v2/repositories",
-    headers: {
-        "Content-Type": "application/vnd.scmm-repository+json;v=2",
-        "Authorization":
-        "Basic " + Buffer.from(`${username}:${password}`).toString("base64")
-    }
-};
-
+const repositoryOptions = createRequestOptions("repositories", "application/vnd.scmm-repository+json;v=2");
 export const createRepository = repository => {
     sendJSON(repository, "repository", repositoryOptions);
 };
 
-const groupOptions = {
-    method: "POST",
-    host: "localhost",
-    port: 8081,
-    path: "/scm/api/v2/groups",
-    headers: {
-        "Content-Type": "application/vnd.scmm-group+json;v=2",
-        "Authorization":
-        "Basic " + Buffer.from(`${username}:${password}`).toString("base64")
-    }
-};
-
+const groupOptions = createRequestOptions("groups", "application/vnd.scmm-group+json;v=2");
 export const createGroup = group => {
     sendJSON(group, "group", groupOptions);
 }
